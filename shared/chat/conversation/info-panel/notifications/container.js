@@ -6,7 +6,7 @@ import {compose, branch, renderNothing, connect, type TypedState} from '../../..
 import {type DeviceType} from '../../../../constants/types/more'
 import {type StateProps, type DispatchProps} from './container'
 
-const serverStateToProps = (notifications: Constants.NotificationsState, type: 'desktop' | 'mobile') => {
+const serverStateToProps = (notifications: ?Constants.NotificationsState, type: 'desktop' | 'mobile') => {
   // The server state has independent bool values for atmention/generic,
   // but the design has three radio buttons -- atmention, generic, never.
   // So:
@@ -14,10 +14,10 @@ const serverStateToProps = (notifications: Constants.NotificationsState, type: '
   //  - generic: false, atmention: true  = atmention
   //  - generic: true,  atmention: false = generic
   //  - generic: false, atmention: false = never
-  if (notifications[type] && notifications[type].generic) {
+  if (notifications && notifications[type] && notifications[type].generic) {
     return 'generic'
   }
-  if (notifications[type] && notifications[type].atmention) {
+  if (notifications && notifications[type] && notifications[type].atmention) {
     return 'atmention'
   }
   return 'never'
