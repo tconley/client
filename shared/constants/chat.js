@@ -234,7 +234,6 @@ export type ClientMessage =
   | SupersedesMessage
   | LoadingMoreMessage
   | ChatSecuredHeaderMessage
-  | SystemMessage
 export type ServerMessage =
   | TextMessage
   | ErrorMessage
@@ -244,6 +243,7 @@ export type ServerMessage =
   | EditingMessage
   | UpdatingAttachment
   | InvisibleErrorMessage
+  | SystemMessage
 
 export type Message = ClientMessage | ServerMessage
 
@@ -481,7 +481,7 @@ export type AppendMessages = NoErrorTypedAction<
     conversationIDKey: ConversationIDKey,
     isAppFocused: boolean,
     isSelected: boolean,
-    messages: Array<Message>,
+    messages: Array<ServerMessage>,
     svcShouldDisplayNotification: boolean,
   }
 >
@@ -559,7 +559,7 @@ export type PrependMessages = NoErrorTypedAction<
   'chat:prependMessages',
   {
     conversationIDKey: ConversationIDKey,
-    messages: Array<Message>,
+    messages: Array<ServerMessage>,
     moreToLoad: boolean,
     paginationNext: ?Buffer,
   }
