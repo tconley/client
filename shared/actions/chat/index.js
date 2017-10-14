@@ -143,10 +143,8 @@ function* _incomingMessage(action: Constants.IncomingMessage): SagaGenerator<any
         const chatTabSelected = selectedTab === chatTab
         const conversationIsFocused =
           conversationIDKey === selectedConversationIDKey && appFocused && chatTabSelected && userActive
-
         if (message.messageID && conversationIsFocused) {
-          const messageID = (message.messageID: Constants.MessageID)
-          const {type: msgIDType, msgID: rpcMessageID} = Constants.parseMessageID(messageID)
+          const {type: msgIDType, msgID: rpcMessageID} = Constants.parseMessageID(message.messageID)
           if (msgIDType === 'rpcMessageID') {
             // TODO does this have to be sync?
             try {
